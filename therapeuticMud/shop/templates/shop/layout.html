@@ -11,7 +11,18 @@
     <script src="https://kit.fontawesome.com/e4ccca3202.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+    <nav class="navbar fixed-top bg-body-tertiary mt-2 ms-2 me-2">
+        <div class="container-fluid">
+            <div class="flex-fill text-center"><h1><span class="badge text-bg-success">Магазин лечебной грязи <i class="fa-solid fa-leaf"></i></span></h1></div>
+            <div class="row align-items-center">
+                <div class="col"><a href="#"><button class="btn btn-outline-success btn-lg" type="button"><i class="fa-solid fa-cart-shopping"></i></button></a></div>
+                <div class="col"><a href="#"><button class="btn btn-outline-success btn-lg" type="button"><i class="fa-solid fa-right-to-bracket"></i></button></a></div>        
+            </div>
+        </div>
+    </nav>
+    <div class="conteiner">
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 </html>
