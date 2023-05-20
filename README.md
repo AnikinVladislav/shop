@@ -1,3 +1,3 @@
 # shop
 
-Hi!!!
+This is a healing mud store.
