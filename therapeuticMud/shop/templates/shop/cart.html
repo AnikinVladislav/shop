@@ -1,0 +1,32 @@
+{% extends 'shop/layout.html' %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+    <div class="container text-center"><h1><span class="badge text-bg-success">Корзина</span></h1></div>
+    <div class="container-fluid">
+        {% if products %}
+            <ul class="list-group">
+                {% for product in products %}
+                <li class="list-group-item list-group-item-info d-flex"> 
+                    <div class="col align-self-center">{{product.product_id__name}}</div>
+                    <div class="col align-self-center">Количество: {{product.quantify}} шт.</div>
+                    <div class="col align-self-center">Итого: <span class="badge bg-success rounded-pill">{{ product.calculated_value }} <i class="fa-solid fa-ruble-sign"></i></span></div>    
+                    
+                    <a href="{% url 'add_to_cart_plus' product.product_id %}" class="align-self-center m-2"><button type="button" class="btn btn-outline-success btn-lg"><i class="fa-solid fa-plus"></i></button></a>
+                    {% if product.quantify != 1 %}
+                        <a href="{% url 'remove_to_cart_minus' product.product_id %}" class="align-self-center m-2"><button type="button" class="btn btn-outline-warning btn-lg"><i class="fa-solid fa-minus"></i></button></a>
+                    {% endif %}
+                    <a href="{% url 'remove_from_cart' product.id %}" class="align-self-center m-2"><button type="button" class="btn btn-outline-danger btn-lg"><i class="fa-solid fa-trash-can"></i></button></a>
+                </li>  
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="container text-center mt-5 mb-5"><h2>Корзина пуста...</h1></div>
+        {% endif %}
+    </div>
+<div class="container-fluid text-end mt-2">
+    <h1>Итого: <span class="badge bg-success rounded-pill">{{ total }} <i class="fa-solid fa-ruble-sign"></i></span></h1>
+    <a href="#" class="align-self-center"><button type="button" class="btn btn-outline-success btn-lg w-25"><i class="fa-solid fa-credit-card"></i></button></a>
+</div>
+{% endblock %}

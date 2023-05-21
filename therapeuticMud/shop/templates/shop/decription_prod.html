@@ -13,10 +13,9 @@
                 <p class="fst-italic">{{myproduct.description}}</p>
                 <div class="row">
                     <div class="col"><h4><span class="badge text-bg-warning w-100">Осталось: {{myproduct.quantify}} шт.</span></h1></div>
-                    <div class="col"><a href="#"><button class="btn btn-outline-success w-50" type="button"><i class="fa-solid fa-basket-shopping"></i></button></a></div>
+                    <div class="col"><a href="{% url 'add_to_cart' myproduct.id %}"><button class="btn btn-outline-success w-50" type="button"><i class="fa-solid fa-basket-shopping"></i></button></a></div>
                 </div>  
             </div>
         </div>
     </div>
-
 {% endblock %}
