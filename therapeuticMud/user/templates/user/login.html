@@ -1,0 +1,26 @@
+{% extends 'shop/layout.html' %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="POST" class="rounded-5 me-5">
+        {% csrf_token %}
+        <div class="container text-center p-3">
+            <h1><span class="badge text-black mb-4">Авторизация</span><br></h1>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="username" placeholder="username">
+                <label for="floatingInput">Имя пользователя</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" name="password" placeholder="Password">
+                <label for="floatingPassword">Пароль</label>
+            </div>
+            <button class="btn btn-outline-primary w-100" type="submit">Авторизироваться</button>
+        </div>
+    </form>
+    <div class="container text-center me-5 pe-5">
+        <a href="{% url 'register_user' %}"><button class="btn btn-outline-primary w-25" type="button">Регистрация</button></a>
+    </div>
+</div>
+{% endblock %}

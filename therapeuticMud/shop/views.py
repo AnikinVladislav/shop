@@ -3,11 +3,20 @@ from .models import *
 
 def index(requset):
     prod = Product.objects.all().values()
-    print(prod)
     context = {
         'products': prod
     }
     return render(requset, 'shop/index.html', context)
+
+
+def show(requset, id):
+    print(id)
+    prod = Product.objects.get(id = id)
+    print(prod)
+    context = {
+        'myproduct': prod
+    }
+    return render(requset, 'shop/decription_prod.html', context)
 
 
 def add_to_cart(request, product_id, quantify):

@@ -3,13 +3,28 @@
 {% block title %}Магазин{% endblock %}
 
 {% block content %}
-    
-    {% for product in products %}
-        {% if product.image %}
-            <div style="width: 300px; height: 500px; background-color: white; display: inline-block; margin: 10px; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
-                <img src="/media/{{product.image}}" style="max-width: 100%; max-height: 100%;">
-            </div>
-<!--            <img src="/media/{{product.image}}" class="rounded float-start" width="300">-->
-        {% endif %}
-    {% endfor %}
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for product in products %}
+                <div class="col-md-4">
+                    <a href="{% url 'show' product.id %}" class="link-success">
+                        <div class="card text-center shadow-lg h-100">
+                            {% if product.image %}
+                                <!-- <div style="width: 300px; height: 500px; background-color: white; display: inline-block; margin: 10px; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
+                                    <img src="/media/{{product.image}}" style="max-width: 100%; max-height: 100%;">
+                                </div> -->
+                                <img src="/media/{{product.image}}" class="card-img-top" style="height: 250px;">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{product.name}}</h5>
+                                <p class="card-text">
+                                    <a href="#"><button class="btn btn-outline-success btn-lg" type="button">{{product.price}} <i class="fa-solid fa-ruble-sign"></i></i></button></a>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

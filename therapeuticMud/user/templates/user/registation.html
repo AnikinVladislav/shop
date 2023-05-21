@@ -1,0 +1,27 @@
+{% extends 'shop/layout.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="shadow m-5 p-2 text-black rounded-5">
+        <div class="text-center"><h1><span class="badge text-black">Регистрация</span><br></h1></div>
+        
+        {% if form.errors %}
+          <!-- {% for error in form.errors %} -->
+            <div class="alert alert-warning alert-dismissible">
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              <strong><i class="fa-solid fa-triangle-exclamation"></i></strong> Ошибка
+            </div>    
+          <!-- {% endfor %} -->
+        {% endif %}
+    
+        <form action="{% url 'register_user' %}" method="POST" class="rounded-5 m-5">
+          {% csrf_token %}
+          {{ form.as_p }}
+    
+        <button class="btn btn-outline-primary" type="submit" style="width: 100%;">Регистрация</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
