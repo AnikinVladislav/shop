@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Product(models.Model):
     """
     price - decimal_places=2 - количество знаков после запятой
@@ -28,6 +29,12 @@ class Order(models.Model):
 
 class OrderDetails(models.Model):
     order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_id = models.ForeignKey(Product, on_delete=models.PROTECT)
     selling_price = models.DecimalField(max_digits=10, decimal_places=2)
     quantify = models.PositiveIntegerField()
+
+
+class Review(models.Model):
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.TextField(null=False)

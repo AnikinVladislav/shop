@@ -27,6 +27,6 @@
     </div>
 <div class="container-fluid text-end mt-2">
     <h1>Итого: <span class="badge bg-success rounded-pill">{{ total }} <i class="fa-solid fa-ruble-sign"></i></span></h1>
-    <a href="#" class="align-self-center"><button type="button" class="btn btn-outline-success btn-lg w-25"><i class="fa-solid fa-credit-card"></i></button></a>
+    <a href="{% url 'create_order' %}" class="align-self-center"><button type="button" class="btn btn-outline-success btn-lg w-25"><i class="fa-solid fa-credit-card"></i></button></a>
 </div>
 {% endblock %}
