@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'shop/layout.html' %}
 
-</body>
-</html>
+{% block title %}Информация o заказах{% endblock %}
+
+{% block content %}
+<div class="container"> 
+  <!-- {% for order in orders %}
+      {{ order }}
+      {% for orderd in order.order_detail %}
+          {{orderd}}
+      {% endfor %}
+  {% endfor %} -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Дата и время</th>
+        <th scope="col">Имя пользователя</th>
+        <th scope="col">Название товара</th>
+        <th scope="col">Стоимость</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+            <tr>
+                <th scope="row">{{ order.order_date.day }}.{{ order.order_date.month }}.{{ order.order_date.year }}<br> {{ order.order_date.hour }}:{{ order.order_date.minute }}</th>
+                <td>{{ order.user_id__username }}</td>
+                <td>
+                    {% for orderd in order.order_detail %}
+                        {{ orderd.product_id__name }} - {{ orderd.quantify }} шт.<br>
+                    {% endfor %}
+                </td>
+                <td>{{ order.total }} <i class="fa-solid fa-ruble-sign"></i></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+  </div>
+{% endblock %}

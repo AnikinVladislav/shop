@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Q
 from .models import *
+from .forms import *
 
 
 def index(request):
@@ -15,8 +16,20 @@ def index(request):
 
 def show(request, id):
     prod = Product.objects.get(id=id)
+    reviews = Review.objects.filter(product_id=id).values('user_id__username','review_date', 'comment')
+    if request.method == "POST":
+        form = Review_form(request.POST)
+        if form.is_valid():
+            mycomment = form.cleaned_data['comment']
+            myuser = User.objects.get(id=request.user.id)
+            myreview = Review(product_id=prod, user_id=myuser, comment=mycomment)
+            myreview.save()
+    else:
+        form = Review_form()
     context = {
-        'myproduct': prod
+        'myproduct': prod,
+        'reviews': reviews,
+        'form': form
     }
     return render(request, 'shop/decription_prod.html', context)
 
@@ -115,9 +128,9 @@ def create_order(request):
 def show_orders(request):
     total = 0
     if request.user.is_staff:
-        orders = Order.objects.values()
+        orders = Order.objects.values('user_id__username','order_date','id')
         for order in orders:
-            order_details = OrderDetails.objects.filter(order_id=order['id']).values()
+            order_details = OrderDetails.objects.filter(order_id=order['id']).values('product_id__name', 'selling_price', 'quantify')
             order['order_detail'] = order_details
             for order_detail in order_details:
                 total += (order_detail['selling_price'] * order_detail['quantify'])
@@ -126,6 +139,7 @@ def show_orders(request):
         context = {
             'orders': orders,
         }
+        print(orders)
         return render(request, 'shop/orders.html', context)
     else:
         return redirect('login')

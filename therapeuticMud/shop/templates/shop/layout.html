@@ -16,6 +16,9 @@
             <div class="flex-fill text-center ms-5 ps-5"><a href="{% url 'home' %}"><h1><span class="badge text-bg-success">Магазин лечебной грязи <i class="fa-solid fa-leaf"></i></span></h1></a></div>
             <div class="row align-items-center">
                 <div class="col"><a href="{% url 'show_cart' %}"><button class="btn btn-outline-success btn-lg" type="button"><i class="fa-solid fa-cart-shopping"></i></button></a></div>
+                {% if user.is_staff %}
+                    <div class="col"><a href="{% url 'show_orders' %}"><button class="btn btn-outline-success btn-lg" type="button"><i class="fa-solid fa-list"></i></button></a></div>
+                {% endif %}
                 {% if user.is_authenticated %}
                     <div class="col"><a href="{% url 'logout' %}"><button class="btn btn-outline-success btn-lg" type="button"><i class="fa-solid fa-right-to-bracket"></i></button></a></div>
                 {% else %}    

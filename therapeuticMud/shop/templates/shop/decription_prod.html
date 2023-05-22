@@ -14,7 +14,28 @@
                 <div class="row">
                     <div class="col"><h4><span class="badge text-bg-warning w-100">Осталось: {{myproduct.quantify}} шт.</span></h1></div>
                     <div class="col"><a href="{% url 'add_to_cart' myproduct.id %}"><button class="btn btn-outline-success w-50" type="button"><i class="fa-solid fa-basket-shopping"></i></button></a></div>
-                </div>  
+                </div>
+                <div class="row mt-4 ps-3"><span class="badge text-bg-success w-75"><h2>{{myproduct.price}} <i class="fa-solid fa-ruble-sign"></i></h2></span></div>  
+            </div>
+        </div>
+        <hr class="border border-success border-3 opacity-100">
+        <div class="container text-center pt-1 pb-3">
+            <h2><span class="badge text-bg-success mb-1">Комментарии <i class="fa-solid fa-comment-dots"></i></span></h4>
+            <form method="POST" class="mb-3">
+                {% csrf_token %}
+                {{ form.comment }} <br>
+                <button class="btn btn-outline-success" type="submit" style="width: 100%;"><i class="fa-solid fa-comment"></i></button>
+            </form>
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    {% for review in reviews %} 
+                        <li class="list-group-item">
+                            <div class="row text-start"><strong><i class="fa-solid fa-calendar-days"></i> {{review.review_date.day}}.{{review.review_date.month}}.{{review.review_date.year}}|  <i class="fa-regular fa-user"></i> {{review.user_id__username}}</strong></div>
+                            <hr class="border border-success border-1 opacity-100">
+                            <div class="row text-start">{{review.comment}}</div>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
