@@ -3,9 +3,6 @@ from django.contrib.auth.models import User
 
 
 class Product(models.Model):
-    """
-    price - decimal_places=2 - количество знаков после запятой
-    """
     name = models.CharField(max_length=255, null=False)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
