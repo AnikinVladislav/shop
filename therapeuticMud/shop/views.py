@@ -18,12 +18,15 @@ def show(request, id):
     product = Product.objects.get(id=id)
     reviews = Review.objects.filter(product_id=id).values('user_id__username', 'review_date', 'comment')
     if request.method == "POST":
-        form = Review_form(request.POST)
-        if form.is_valid():
-            my_comment = form.cleaned_data['comment']
-            my_user = User.objects.get(id=request.user.id)
-            my_review = Review(product_id=product, user_id=my_user, comment=my_comment)
-            my_review.save()
+        if request.user.is_authenticated:
+            form = Review_form(request.POST)
+            if form.is_valid():
+                my_comment = form.cleaned_data['comment']
+                my_user = User.objects.get(id=request.user.id)
+                my_review = Review(product_id=product, user_id=my_user, comment=my_comment)
+                my_review.save()
+        else:
+            return redirect('login')
     else:
         form = Review_form()
     context = {
