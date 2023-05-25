@@ -108,7 +108,8 @@ def remove_from_cart(request, product_in_cart_id):
     return redirect('show_cart')
 
 
-def create_order(request):
+def confirm_order(request):
+    print(request.POST)
     if request.user.is_authenticated:
         products_in_cart = ProductInCart.objects.filter(user_id=request.user.id).values('product_id_id', 'quantify', 'product_id__quantify', 'product_id__name')
 
@@ -133,14 +134,26 @@ def create_order(request):
             my_product = Product.objects.get(id=product_in_cart['product_id_id'])
             order_details = OrderDetails(order_id=order, product_id=my_product, selling_price=my_product.price, quantify=product_in_cart['quantify'])
             order_details.save()
-
+        total = 1000.00
         # remove products from cart
         ProductInCart.objects.filter(user_id=request.user.id).delete()
-
+        form = Order_form()
         messages.success(request, (f"Заказ номер: {order.id} создан"))
-        return redirect('home')
+        context = {
+            'total': total,
+            'form' : form
+        }
+        return render(request, 'shop/order_form.html', context)
+        # return redirect('create_order')
     else:
         return redirect('home')
+    
+
+
+def create_order(request):
+    pass
+    
+
 
 
 def show_orders(request):
