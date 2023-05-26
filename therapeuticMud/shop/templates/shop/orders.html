@@ -3,20 +3,17 @@
 {% block title %}Информация o заказах{% endblock %}
 
 {% block content %}
-<div class="container"> 
-  <!-- {% for order in orders %}
-      {{ order }}
-      {% for orderd in order.order_detail %}
-          {{orderd}}
-      {% endfor %}
-  {% endfor %} -->
+<div class="container-fluid"> 
   <table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">Дата и время</th>
-        <th scope="col">Имя пользователя</th>
+        <th scope="col">Имя</th>
         <th scope="col">Название товара</th>
         <th scope="col">Стоимость</th>
+        <th scope="col">Адресс</th>
+        <th scope="col">Метод оплаты</th>
+        <th scope="col">Статус оплаты</th>
       </tr>
     </thead>
     <tbody>
@@ -30,6 +27,21 @@
                     {% endfor %}
                 </td>
                 <td>{{ order.total }} <i class="fa-solid fa-ruble-sign"></i></td>
+                <td>{{ order.address }}</td>
+                <td>
+                    {% if order.payment_method == '0' %}
+                      <i class="fa-solid fa-money-bill-wave"></i>
+                    {% else %}
+                      <i class="fa-regular fa-credit-card"></i>
+                    {% endif %}
+                </td>
+                <td>
+                  {% if order.payment_status == '0' %}
+                    Не оплачен
+                  {% else %}
+                    Оплачен
+                  {% endif %}
+                </td>
             </tr>
         {% endfor %}
     </tbody>

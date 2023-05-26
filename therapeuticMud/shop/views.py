@@ -34,7 +34,7 @@ def index(request):
 
 def show(request, id):
     product = Product.objects.get(id=id)
-    reviews = Review.objects.filter(product_id=id).values('user_id__username', 'review_date', 'comment')
+    reviews = Review.objects.filter(product_id=id).values('user_id__username', 'review_date', 'comment').order_by('-review_date')
     if request.method == "POST":
         if request.user.is_authenticated:
             form = ReviewForm(request.POST)
@@ -226,10 +226,10 @@ def show_orders(request):
     if request.user.is_authenticated:
         if request.user.is_staff:
             orders = Order.objects.values('user_id__username', 'order_date', 'id', 'address', 'payment_method',
-                                      'payment_status')
+                                      'payment_status').order_by('-order_date')
         else:
             orders = Order.objects.filter(user_id=request.user.id).values('user_id__username', 'order_date', 'id', 'address', 'payment_method',
-                                          'payment_status')
+                                          'payment_status').order_by('-order_date')
         total = 0
         # adding order details to orders
         for order in orders:
