@@ -23,7 +23,8 @@ class Order(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     order_date = models.DateTimeField(auto_now_add=True)
     address = models.TextField(null=False) 
-    payment_method = models.CharField(max_length = 1, choices=[( 0, "Наличный расчет"), ( 1, "Безналичный расчет")], default = 1)
+    payment_method = models.CharField(max_length=1, choices=[(0, "Наличный расчет"), (1, "Безналичный расчет")], default=1)
+    payment_status = models.CharField(max_length=1, choices=[(0, "Неоплачен"), (1, "Оплачен")], default=0)
 
 
 class OrderDetails(models.Model):
