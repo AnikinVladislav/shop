@@ -1,2 +1,2 @@
-SHOP_ID =
-SECRET_KEY =
+SHOP_ID = 0
+SECRET_KEY = ''
